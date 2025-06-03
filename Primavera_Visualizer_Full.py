@@ -51,7 +51,7 @@ if uploaded_file:
     )
 
     gantt_fig.update_layout(
-        yaxis_autorange= False,
+        yaxis_autorange= "reversed",
         title="Gantt Chart with Critical Path Highlighted",
         height=500
     )
