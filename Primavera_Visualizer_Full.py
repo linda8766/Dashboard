@@ -18,9 +18,9 @@ if uploaded_file:
     df["Actual Finish"] = pd.to_datetime(df["Actual Finish"])
 
     st.sidebar.title("📊 Filters")
-    WBS = st.sidebar.multiselect("Filter by WBS", df["WBS"].unique(), default=df["WBS"].unique())
+    wbs = st.sidebar.multiselect("Filter by WBS", df["WBS"].unique(), default=df["WBS"].unique())
     df = df[df["WBS"].isin(selected_wbs)]
-    Area = st.sidebar.multiselect("Filter by Area", df["Area"].unique(), default=df["Area"].unique())
+    area = st.sidebar.multiselect("Filter by Area", df["Area"].unique(), default=df["Area"].unique())
     df = df[df["Area"].isin(selected_area)]
 
     st.subheader("📅 Gantt Chart")
