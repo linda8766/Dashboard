@@ -31,7 +31,7 @@ if uploaded_file:
     df["Critical Color"] = df["Critical"].apply(lambda x: "red" if str(x).strip().lower() == "Yes" else "green")
 
     # Plot using the new color column
-        gantt_fig = px.timeline(
+    gantt_fig = px.timeline(
         df,
         x_start="Actual Start",
         x_end="Actual Finish",
