@@ -28,7 +28,7 @@ if uploaded_file:
     st.subheader("📅 Gantt Chart")
 
     # Create a new column for color coding
-    df["Critical Color"] = df["Critical"].apply(lambda x: "red" if str(x).strip().lower() == "yes" else "green")
+    df["Critical Color"] = df["Critical"].apply(lambda x: "red" if str(x).strip().lower() == "Yes" else "green")
 
     # Plot using the new color column
     gantt_fig = px.timeline(
