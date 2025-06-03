@@ -26,9 +26,13 @@ if uploaded_file:
     df = df[df["Resource Name"].isin(selected_resource_name)]
 
     st.subheader("📅 Gantt Chart")
-
+    
+    df_sorted = df.sort_values(by="Actual Start")
     # Create a new column for color coding
     df["Critical Color"] = df["Critical "].fillna("").apply(lambda x: "critical" if str(x).strip().lower() == "yes" else "Non-Critical")
+    
+    # Set custom order for y-axis (activity names)
+    activity_order = df_sorted["Activity Name"].tolist()
 
     # Plot using the new color column
     gantt_fig = px.timeline(
