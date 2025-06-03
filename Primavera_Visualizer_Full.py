@@ -27,13 +27,13 @@ if uploaded_file:
 
     st.subheader("📅 Gantt Chart")
     
-    df_sorted = df.sort_values(by="Activity ID")
+    df_sorted = df.sort_values(by="Activity Name")
     
     # Create a new column for color coding
     df["Critical Color"] = df["Critical "].fillna("").apply(lambda x: "critical" if str(x).strip().lower() == "yes" else "Non-Critical")
     
     # Set custom order for y-axis (activity names)
-    activity_order = df_sorted["Activity ID"].tolist()
+    activity_order = df_sorted["Activity Name"].tolist()
 
     # Plot using the new color column
     gantt_fig = px.timeline(
@@ -46,7 +46,7 @@ if uploaded_file:
         "Critical": "red",
         "Non-Critical": "green"
         },
-        category_orders={"Activity ID": activity_order}, 
+        category_orders={"Activity Name": activity_order}, 
         hover_data=["Activity ID", "Activity Code", "Planned %", "Actual %", "Remarks"]
     )
 
