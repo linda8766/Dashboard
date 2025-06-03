@@ -41,6 +41,7 @@ if uploaded_file:
         "Critical": "red",
         "Non-Critical": "green"
         },
+        category_orders={"Activity Name": activity_order}, 
         hover_data=["Activity ID", "Activity Code", "Planned %", "Actual %", "Remarks"]
     )
 
