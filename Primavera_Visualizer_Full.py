@@ -22,7 +22,7 @@ if uploaded_file:
     df = df[df["WBS"].isin(selected_wbs)]
     
    st.sidebar.title("📊 Filters")
-    selected_wbs = st.sidebar.multiselect("Filter by Area", df["Area"].unique(), default=df["Area"].unique())
+    selected_area = st.sidebar.multiselect("Filter by Area", df["Area"].unique(), default=df["Area"].unique())
     df = df[df["Area"].isin(selected_area)]
 
     st.subheader("📅 Gantt Chart")
