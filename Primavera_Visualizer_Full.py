@@ -39,27 +39,16 @@ if uploaded_file:
     color="Critical Color",  # Use color based on criticality
     color_discrete_map={"red": "red", "green": "green"},
     hover_data=["Activity ID", "Activity Code", "Planned %", "Actual %", "Remarks"]
-)
+    )
 
-gantt_fig.update_layout(
+    gantt_fig.update_layout(
     yaxis_autorange="reversed",
     title="Gantt Chart with Critical Path Highlighted",
     height=500
-)
-
-st.plotly_chart(gantt_fig, use_container_width=True)
-
-    st.subheader("🚩 Milestone Trend Analysis")
-    milestones = df.iloc[::5].copy()
-    milestones["Month"] = milestones["Actual Finish"].dt.to_period("M").astype(str)
-    milestone_fig = px.line(
-        milestones,
-        x="Month",
-        y="Actual Finish",
-        color="Activity Name",
-        markers=True
     )
-    st.plotly_chart(milestone_fig, use_container_width=True)
+
+    st.plotly_chart(gantt_fig, use_container_width=True)
+
 
     st.subheader("📈 S-Curve (Planned vs. Actual Cost)")
     df_sorted = df.sort_values("Actual Finish")
