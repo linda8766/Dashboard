@@ -31,22 +31,18 @@ if uploaded_file:
     df["Critical Color"] = df["Critical"].apply(lambda x: "red" if str(x).strip().lower() == "Yes" else "green")
 
     # Plot using the new color column
-    gantt_fig = px.timeline(
-    df,
-    x_start="Actual Start",
-    x_end="Actual Finish",
-    y="Activity Name",
-    color="Critical Color",  # Use color based on criticality
-    color_discrete_map={"red": "red", "green": "green"},
-    hover_data=["Activity ID", "Activity Code", "Planned %", "Actual %", "Remarks"]
+        gantt_fig = px.timeline(
+        df,
+        x_start="Actual Start",
+        x_end="Actual Finish",
+        y="Activity Name",
+        color="Critical Color",  # Use color based on criticality
+        color_discrete_map={"red": "red", "green": "green"},
+        hover_data=["Activity ID", "Activity Code", "Planned %", "Actual %", "Remarks"]
     )
 
-    gantt_fig.update_layout(
-    yaxis_autorange="reversed",
-    title="Gantt Chart with Critical Path Highlighted",
-    height=500
-    )
-
+    gantt_fig.update_layout(yaxis_autorange="reversed",title="Gantt Chart with Critical Path Highlighted",
+    height=500)
     st.plotly_chart(gantt_fig, use_container_width=True)
 
 
