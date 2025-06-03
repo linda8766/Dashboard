@@ -63,6 +63,60 @@ hist_fig = px.bar(
     title="Man-hours Histogram",
     labels={"value": "Hours", "variable": "Type"}
 )
+import pandas as pd
+import plotly.graph_objects as go
+
+# Load your Excel data
+file_path = "Sample_Primavera_Data.xlsx"  # Change if different
+df = pd.read_excel(file_path, sheet_name="Project Data")
+
+# Convert dates
+df["Actual Start"] = pd.to_datetime(df["Actual Start"])
+df["Actual Finish"] = pd.to_datetime(df["Actual Finish"])
+
+# Earned Value Calculations
+df["EV"] = df["Budgeted Cost"] * df["Actual %"] / 100
+df["PV"] = df["Budgeted Cost"] * df["Planned %"] / 100
+df["AC"] = df["Actual Cost"]
+
+# Summing up values
+EV = df["EV"].sum()
+PV = df["PV"].sum()
+AC = df["AC"].sum()
+
+# EVM indices
+CPI = EV / AC if AC else None
+SPI = EV / PV if PV else None
+CV = EV - AC
+SV = EV - PV
+
+# Earned Schedule (assumed AT = 100 days)
+AT = 100
+ES = SPI * AT if SPI else None
+Schedule_Variance_Time = ES - AT if ES else None
+
+# Create Plotly Table
+summary_fig = go.Figure(data=[
+    go.Table(header=dict(values=["Metric", "Value"]),
+             cells=dict(values=[
+                 ["Planned Value (PV)", "Earned Value (EV)", "Actual Cost (AC)",
+                  "Cost Variance (CV)", "Schedule Variance (SV)",
+                  "Cost Performance Index (CPI)", "Schedule Performance Index (SPI)",
+                  "Earned Schedule (ES)", "Schedule Variance (Time)"],
+                 [f"${PV:,.2f}", f"${EV:,.2f}", f"${AC:,.2f}",
+                  f"${CV:,.2f}", f"${SV:,.2f}",
+                  f"{CPI:.2f}" if CPI else "N/A",
+                  f"{SPI:.2f}" if SPI else "N/A",
+                  f"{ES:.2f} days" if ES else "N/A",
+                  f"{Schedule_Variance_Time:.2f} days" if Schedule_Variance_Time else "N/A"]
+             ]))
+])
+
+summary_fig.update_layout(title="Earned Value and Earned Schedule Summary")
+
+# Save to HTML
+summary_fig.write_html("EVM_Summary_Report.html")
+print("✅ EVM Summary saved to: EVM_Summary_Report.html")
 
 # ---------------- Save all charts to one HTML ----------------
 with open("Project_Visualizer_Report.html", "w") as f:
