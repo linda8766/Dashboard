@@ -28,7 +28,7 @@ if uploaded_file:
     st.subheader("📅 Gantt Chart")
 
     # Create a new column for color coding
-    df["Critical Color"] = df["Critical"].apply(lambda x: "red" if str(x).strip().lower() == "yes" else "green")
+    df["Critical Color"] = df["Critical"].fillna("").apply(lambda x: "red" if str(x).strip().lower() == "yes" else "green")
 
     # Plot using the new color column
     gantt_fig = px.timeline(
@@ -37,7 +37,6 @@ if uploaded_file:
         x_end="Actual Finish",
         y="Activity Name",
         color="Critical Color",  # Use color based on criticality
-        color_discrete_map={"red": "red", "green": "green"},
         hover_data=["Activity ID", "Activity Code", "Planned %", "Actual %", "Remarks"]
     )
 
