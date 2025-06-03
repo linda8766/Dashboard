@@ -22,8 +22,8 @@ if uploaded_file:
     df = df[df["WBS"].isin(selected_wbs)]
     selected_area = st.sidebar.multiselect("Filter by Area", df["Area"].unique(), default=df["Area"].unique())
     df = df[df["Area"].isin(selected_area)]
-    selected_Resource Name = st.sidebar.multiselect("Filter by Resource Name", df["Area"].unique(), default=df["Resource Name"].unique())
-    df = df[df["Resource Name"].isin(selected_Resource Name)]
+    selected_resource_name = st.sidebar.multiselect("Filter by Resource Name", df["Resource Name"].unique(), default=df["Resource Name"].unique())
+    df = df[df["Resource Name"].isin(selected_resource_name)]
 
     st.subheader("📅 Gantt Chart")
     gantt_fig = px.timeline(
