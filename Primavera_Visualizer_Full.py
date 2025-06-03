@@ -41,8 +41,11 @@ if uploaded_file:
         hover_data=["Activity ID", "Activity Code", "Planned %", "Actual %", "Remarks"]
     )
 
-    gantt_fig.update_layout(yaxis_autorange="reversed",title="Gantt Chart with Critical Path Highlighted",
-    height=500)
+    gantt_fig.update_layout(
+        yaxis_autorange="reversed",
+        title="Gantt Chart with Critical Path Highlighted",
+        height=500
+    )
     st.plotly_chart(gantt_fig, use_container_width=True)
 
 
