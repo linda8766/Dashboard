@@ -37,6 +37,7 @@ if uploaded_file:
         x_end="Actual Finish",
         y="Activity Name",
         color="Critical Color",  # Use color based on criticality
+        color_discrete_map={"red": "red", "green": "green"},
         hover_data=["Activity ID", "Activity Code", "Planned %", "Actual %", "Remarks"]
     )
 
