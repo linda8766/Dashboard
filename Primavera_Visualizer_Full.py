@@ -19,7 +19,6 @@ if uploaded_file:
     
     # Sidebar filters
     st.sidebar.title("📊 Filters")
-    WBS =st.sidebar.multiselect("WBS", data["WBS"].unique(), default=data["WBS"].unique())
     Area = st.sidebar.multiselect("Area", data["Area"].unique(), default=data["Area"].unique())
 
     # Filter data
