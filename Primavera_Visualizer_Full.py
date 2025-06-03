@@ -27,6 +27,8 @@ if uploaded_file:
 
     st.subheader("📅 Gantt Chart")
     
+    df_sorted = df.sort_values(by="Activity Name")
+    
     # Create a new column for color coding
     df["Critical Color"] = df["Critical "].fillna("").apply(lambda x: "critical" if str(x).strip().lower() == "yes" else "Non-Critical")
     
