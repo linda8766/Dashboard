@@ -22,9 +22,8 @@ if uploaded_file:
     Area = st.sidebar.multiselect("Area", data["Area"].unique(), default=data["Area"].unique())
 
     # Filter data
-filtered_data = data[(data["WBS"].isin(WBS)) &
+    filtered_data = data[(data["WBS"].isin(WBS)) &
                      (data["Area"].isin(Area))]
-
     st.subheader("📅 Gantt Chart")
     gantt_fig = px.timeline(
         df,
