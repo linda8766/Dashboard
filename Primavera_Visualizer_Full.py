@@ -17,13 +17,12 @@ if uploaded_file:
     df["Actual Start"] = pd.to_datetime(df["Actual Start"])
     df["Actual Finish"] = pd.to_datetime(df["Actual Finish"])
     
-    # Sidebar filters
     st.sidebar.title("📊 Filters")
-    Area = st.sidebar.multiselect("Area", data["Area"].unique(), default=data["Area"].unique())
+    wbs = st.sidebar.multiselect("Filter by WBS", df["WBS"].unique(), default=df["WBS"].unique())
+    df = df[df["WBS"].isin(selected_wbs)]
+    area = st.sidebar.multiselect("Filter by Area", df["Area"].unique(), default=df["Area"].unique())
+    df = df[df["Area"].isin(selected_area)]
 
-    # Filter data
-    filtered_data = data[(data["WBS"].isin(WBS)) &
-                     (data["Area"].isin(Area))]
     st.subheader("📅 Gantt Chart")
     gantt_fig = px.timeline(
         df,
