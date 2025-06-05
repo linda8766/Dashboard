@@ -10,7 +10,7 @@ st.set_page_config(
     page_title= "Construction project Dashboard",
     layout="wide"
 )
-fig.update_layout(template="plotly_dark")
+
 
 uploaded_file = st.file_uploader("📂 Upload Your Primavera P6 Excel File", type=["xlsx"])
 
