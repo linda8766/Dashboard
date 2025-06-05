@@ -36,8 +36,13 @@ if uploaded_file:
         EV = df["EV"].sum()
         PV = df["PV"].sum()
         AC = df["AC"].sum()
-        CPI = EV / AC if AC else None
-        SPI = EV / PV if PV else None
+        latest_date = df["Actual Finish"].max()
+        df_latest = df[df["Actual Finish"] == latest_date]
+        EV = df_latest["EV"].sum()
+        AC = df_latest["AC"].sum()
+        PV = df_latest["PV"].sum()
+        CPI = EV / AC if AC != 0 else 0
+        SPI = EV / PV if PV != 0 else 0
         CV = EV - AC
         SV = EV - PV
         AT = 100
@@ -49,8 +54,28 @@ if uploaded_file:
         st.metric("Actual Cost (AC)", f"${AC:,.2f}")
         st.metric("Cost Variance (CV)", f"${CV:,.2f}")
         st.metric("Schedule Variance (SV)", f"${SV:,.2f}")
-        st.metric("CPI", f"{CPI:.2f}" if CPI else "N/A")
-        st.metric("SPI", f"{SPI:.2f}" if SPI else "N/A")
+        # Prepare data for donut chart
+        labels = ["CPI", "SPI"]
+        values = [CPI, SPI]
+        colors = ["green" if CPI >= 1 else "red", "blue" if SPI >= 1 else "orange"]
+        
+        # Plotly Donut Chart
+        donut_fig = go.Figure(data=[go.Pie(
+            labels=labels,
+            values=values,
+            hole=0.6,
+            marker=dict(colors=colors),
+            textinfo='label+percent',
+            hoverinfo='label+value'
+        )])
+        
+        donut_fig.update_layout(
+            title_text=f"📊 Performance Indices Snapshot (as of {latest_date.date()})",
+            showlegend=True
+        )
+        
+        # Display in Streamlit
+        st.plotly_chart(donut_fig, use_container_width=True)
         st.metric("Earned Schedule (ES)", f"{ES:.2f}" if ES else "N/A")
         st.metric("Schedule Variance (Time)", f"{Schedule_Variance_Time:.2f}" if Schedule_Variance_Time else "N/A")
 
