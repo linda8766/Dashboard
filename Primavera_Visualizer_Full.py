@@ -58,8 +58,10 @@ if uploaded_file:
     )
     st.plotly_chart(gantt_fig, use_container_width=True)
 
+    Fig_col, fig_col2= st.columns(2)
 
-    st.subheader("📈 S-Curve (Planned vs. Actual Cost)")
+    with fig_col1:
+    st.markdown("### First Chart")
     df_sorted = df.sort_values("Actual Finish")
     df_sorted["Cumulative Planned Cost"] = df_sorted["Budgeted Cost"].cumsum()
     df_sorted["Cumulative Actual Cost"] = df_sorted["Actual Cost"].cumsum()
@@ -70,10 +72,12 @@ if uploaded_file:
                                      mode='lines+markers', name='Actual Cost'))
     s_curve_fig.update_layout(xaxis_title="Date", yaxis_title="Cumulative Cost")
     st.plotly_chart(s_curve_fig, use_container_width=True)
-
-    st.subheader("📊 Man-hours Histogram")
+    
+    with fig_col2:
+    st.markdown("### Second Chart")
     hist_fig = px.bar(df, x="Activity Name", y=["Budgeted Hours", "Actual Hours"], barmode="group")
     st.plotly_chart(hist_fig, use_container_width=True)
+    
 
     st.subheader("📌 Earned Value Management")
     df["EV"] = df["Budgeted Cost"] * df["Actual %"] / 100
