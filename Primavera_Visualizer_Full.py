@@ -98,7 +98,7 @@ if uploaded_file:
 
     with col[1]:
 
-        st.markdown('#### Gannt Chart, S-Curve, and Resource Histogram')
+        st.markdown('#### Gantt Chart, S-Curve, and Resource Histogram')
         df_sorted = df.sort_values(by="Activity ID")
         
         # Create a new column for color coding
