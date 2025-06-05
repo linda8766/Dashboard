@@ -61,6 +61,8 @@ if uploaded_file:
 
     with fig_col1:
         st.markdown("### S-Curve")
+        hist_fig_cost = px.bar(df, x="Activity Name", y=["Budgeted Cost", "Actual Cost"], barmode="group")
+        st.plotly_chart(hist_fig_cost, use_container_width=True)
         df_sorted = df.sort_values("Actual Finish")
         df_sorted["Cumulative Planned Cost"] = df_sorted["Budgeted Cost"].cumsum()
         df_sorted["Cumulative Actual Cost"] = df_sorted["Actual Cost"].cumsum()
@@ -70,9 +72,8 @@ if uploaded_file:
         s_curve_fig.add_trace(go.Scatter(x=df_sorted["Actual Finish"], y=df_sorted["Cumulative Actual Cost"],
                                  mode='lines+markers', name='Actual Cost'))
         s_curve_fig.update_layout(xaxis_title="Date", yaxis_title="Cumulative Cost")
-        hist_fig_cost = px.bar(df, x="Activity Name", y=["Budgeted Cost", "Actual Cost"], barmode="group")
-        st.plotly_chart(hist_fig_cost, s_curve_fig, use_container_width=True)
-
+        st.plotly_chart(s_curve_fig, use_container_width=True)
+        
     with fig_col2:
         st.markdown("### Man-hour Histogram")
         hist_fig_manhour = px.bar(df, x="Activity Name", y=["Budgeted Hours", "Actual Hours"], barmode="group")
