@@ -150,5 +150,5 @@ if uploaded_file:
                                        mode='lines+markers', name="SPI", line=dict(color='blue')))
         trend_fig.update_layout(xaxis_title="Date", yaxis_title="Index Value", yaxis=dict(range=[0, 2]))
         st.plotly_chart(trend_fig, use_container_width=True)
-            else:
-            st.info("Please upload a Primavera P6 Excel file to get started.")
+    else:
+        st.info("Please upload a Primavera P6 Excel file to get started.")
