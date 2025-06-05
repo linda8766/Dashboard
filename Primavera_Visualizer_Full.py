@@ -100,7 +100,6 @@ if uploaded_file:
         fig.update_yaxes(title_text="Daily Cost", secondary_y=False)
         fig.update_yaxes(title_text="Cumulative Cost", secondary_y=True)
         legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1)
-    	)
 
         # Show in Streamlit
         st.plotly_chart(fig, use_container_width=True)
