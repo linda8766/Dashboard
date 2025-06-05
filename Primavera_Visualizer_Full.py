@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
+from plotly.subplots import make_subplots
 
 st.set_page_config(layout="wide")
 st.title("Primavera P6 Project Visualizer")
@@ -60,19 +61,47 @@ if uploaded_file:
     fig_col1, fig_col2 = st.columns(2)  # Corrected variable names
 
     with fig_col1:
-        st.markdown("### S-Curve")
-        hist_fig_cost = px.bar(df, x="Activity Name", y=["Budgeted Cost", "Actual Cost"], barmode="group")
-        st.plotly_chart(hist_fig_cost, use_container_width=True)
-        df_sorted = df.sort_values("Actual Finish")
-        df_sorted["Cumulative Planned Cost"] = df_sorted["Budgeted Cost"].cumsum()
-        df_sorted["Cumulative Actual Cost"] = df_sorted["Actual Cost"].cumsum()
-        s_curve_fig = go.Figure()
-        s_curve_fig.add_trace(go.Scatter(x=df_sorted["Actual Finish"], y=df_sorted["Cumulative Planned Cost"],
-                                 mode='lines+markers', name='Planned Cost'))
-        s_curve_fig.add_trace(go.Scatter(x=df_sorted["Actual Finish"], y=df_sorted["Cumulative Actual Cost"],
-                                 mode='lines+markers', name='Actual Cost'))
-        s_curve_fig.update_layout(xaxis_title="Date", yaxis_title="Cumulative Cost")
-        st.plotly_chart(s_curve_fig, use_container_width=True)
+        # Sort and compute cumulative values
+    df_sorted = df.sort_values("Actual Finish")
+    df_sorted["Cumulative Planned Cost"] = df_sorted["Budgeted Cost"].cumsum()
+    df_sorted["Cumulative Actual Cost"] = df_sorted["Actual Cost"].cumsum()
+
+    # Create a figure with secondary y-axis
+    fig = make_subplots(specs=[[{"secondary_y": True}]])
+
+    # Add S-Curve lines (secondary y-axis)
+    fig.add_trace(
+        go.Scatter(x=df_sorted["Actual Finish"], y=df_sorted["Cumulative Planned Cost"],
+               mode='lines+markers', name='Planned Cumulative Cost'),
+        secondary_y=True
+    )
+    fig.add_trace(
+        go.Scatter(x=df_sorted["Actual Finish"], y=df_sorted["Cumulative Actual Cost"],
+               mode='lines+markers', name='Actual Cumulative Cost'),
+        secondary_y=True
+    )
+
+    # Add bar chart for individual activity costs (primary y-axis)
+    fig.add_trace(
+        go.Bar(x=df["Activity Name"], y=df["Budgeted Cost"], name="Budgeted Cost"),
+        secondary_y=False
+    )
+    fig.add_trace(
+        go.Bar(x=df["Activity Name"], y=df["Actual Cost"], name="Actual Cost"),
+        secondary_y=False
+    )
+
+    # Update axis titles
+    fig.update_layout(
+        title="S-Curve and Cost Histogram Combined",
+        xaxis_title="Date / Activity Name",
+        barmode="group"
+    )
+    fig.update_yaxes(title_text="Cost per Activity", secondary_y=False)
+    fig.update_yaxes(title_text="Cumulative Cost", secondary_y=True)
+
+    # Show in Streamlit
+    st.plotly_chart(fig, use_container_width=True)
         
     with fig_col2:
         st.markdown("### Man-hour Histogram")
