@@ -97,7 +97,7 @@ if uploaded_file:
             xaxis_title="Actual Finish Date",
             barmode="group"
         )
-        fig.update_yaxes(title_text="Daily Cost", secondary_y=False)
+        fig.update_yaxes(title_text="Cost", secondary_y=False)
         fig.update_yaxes(title_text="Cumulative Cost", secondary_y=True)
         legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1)
 
