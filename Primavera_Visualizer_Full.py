@@ -118,7 +118,7 @@ if uploaded_file:
             y="Activity Name",
             color="Critical Color",  # Use color based on criticality
             color_discrete_map={
-            "Critical": "Red,
+            "Critical": "Red",
             "Non-Critical": "green"
             },
             category_orders={"Activity Name": activity_order}, 
