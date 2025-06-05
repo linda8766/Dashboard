@@ -6,7 +6,7 @@ from plotly.subplots import make_subplots
 
 st.set_page_config(
     page_title= "Construction project Dashboard",
-    layout="wide")
+    layout="wide"))
 alt.themes.enable("dark")
 
 uploaded_file = st.file_uploader("📂 Upload Your Primavera P6 Excel File", type=["xlsx"])
