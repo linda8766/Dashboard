@@ -29,30 +29,30 @@ if uploaded_file:
     
     with col[0]:
 
-    st.subheader("📌 Earned Value Management")
-    df["EV"] = df["Budgeted Cost"] * df["Actual %"] / 100
-    df["PV"] = df["Budgeted Cost"] * df["Planned %"] / 100
-    df["AC"] = df["Actual Cost"]
-    EV = df["EV"].sum()
-    PV = df["PV"].sum()
-    AC = df["AC"].sum()
-    CPI = EV / AC if AC else None
-    SPI = EV / PV if PV else None
-    CV = EV - AC
-    SV = EV - PV
-    AT = 100
-    ES = SPI * AT if SPI else None
-    Schedule_Variance_Time = ES - AT if ES else None
-
-    st.metric("Planned Value (PV)", f"${PV:,.2f}")
-    st.metric("Earned Value (EV)", f"${EV:,.2f}")
-    st.metric("Actual Cost (AC)", f"${AC:,.2f}")
-    st.metric("Cost Variance (CV)", f"${CV:,.2f}")
-    st.metric("Schedule Variance (SV)", f"${SV:,.2f}")
-    st.metric("CPI", f"{CPI:.2f}" if CPI else "N/A")
-    st.metric("SPI", f"{SPI:.2f}" if SPI else "N/A")
-    st.metric("Earned Schedule (ES)", f"{ES:.2f}" if ES else "N/A")
-    st.metric("Schedule Variance (Time)", f"{Schedule_Variance_Time:.2f}" if Schedule_Variance_Time else "N/A")
+        st.subheader("📌 Earned Value Management")
+        df["EV"] = df["Budgeted Cost"] * df["Actual %"] / 100
+        df["PV"] = df["Budgeted Cost"] * df["Planned %"] / 100
+        df["AC"] = df["Actual Cost"]
+        EV = df["EV"].sum()
+        PV = df["PV"].sum()
+        AC = df["AC"].sum()
+        CPI = EV / AC if AC else None
+        SPI = EV / PV if PV else None
+        CV = EV - AC
+        SV = EV - PV
+        AT = 100
+        ES = SPI * AT if SPI else None
+        Schedule_Variance_Time = ES - AT if ES else None
+    
+        st.metric("Planned Value (PV)", f"${PV:,.2f}")
+        st.metric("Earned Value (EV)", f"${EV:,.2f}")
+        st.metric("Actual Cost (AC)", f"${AC:,.2f}")
+        st.metric("Cost Variance (CV)", f"${CV:,.2f}")
+        st.metric("Schedule Variance (SV)", f"${SV:,.2f}")
+        st.metric("CPI", f"{CPI:.2f}" if CPI else "N/A")
+        st.metric("SPI", f"{SPI:.2f}" if SPI else "N/A")
+        st.metric("Earned Schedule (ES)", f"{ES:.2f}" if ES else "N/A")
+        st.metric("Schedule Variance (Time)", f"{Schedule_Variance_Time:.2f}" if Schedule_Variance_Time else "N/A")
 
     with col[1]:
 
