@@ -118,8 +118,8 @@ if uploaded_file:
             y="Activity Name",
             color="Critical Color",  # Use color based on criticality
             color_discrete_map={
-            "Critical": "dark red",
-            "Non-Critical": "yellow"
+            "Critical": "Red,
+            "Non-Critical": "green"
             },
             category_orders={"Activity Name": activity_order}, 
             hover_data=["Activity ID", "Activity Code", "Planned %", "Actual %", "Remarks"]
