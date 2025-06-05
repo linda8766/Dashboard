@@ -62,46 +62,46 @@ if uploaded_file:
 
     with fig_col1:
         # Sort and compute cumulative values
-    df_sorted = df.sort_values("Actual Finish")
-    df_sorted["Cumulative Planned Cost"] = df_sorted["Budgeted Cost"].cumsum()
-    df_sorted["Cumulative Actual Cost"] = df_sorted["Actual Cost"].cumsum()
+        df_sorted = df.sort_values("Actual Finish")
+        df_sorted["Cumulative Planned Cost"] = df_sorted["Budgeted Cost"].cumsum()
+        df_sorted["Cumulative Actual Cost"] = df_sorted["Actual Cost"].cumsum()
 
-    # Create a figure with secondary y-axis
-    fig = make_subplots(specs=[[{"secondary_y": True}]])
+        # Create a figure with secondary y-axis
+        fig = make_subplots(specs=[[{"secondary_y": True}]])
 
-    # Add S-Curve lines (secondary y-axis)
-    fig.add_trace(
-        go.Scatter(x=df_sorted["Actual Finish"], y=df_sorted["Cumulative Planned Cost"],
-               mode='lines+markers', name='Planned Cumulative Cost'),
-        secondary_y=True
-    )
-    fig.add_trace(
-        go.Scatter(x=df_sorted["Actual Finish"], y=df_sorted["Cumulative Actual Cost"],
-               mode='lines+markers', name='Actual Cumulative Cost'),
-        secondary_y=True
-    )
+        # Add S-Curve lines (secondary y-axis)
+        fig.add_trace(
+            go.Scatter(x=df_sorted["Actual Finish"], y=df_sorted["Cumulative Planned Cost"],
+                   mode='lines+markers', name='Planned Cumulative Cost'),
+            secondary_y=True
+        )
+        fig.add_trace(
+            go.Scatter(x=df_sorted["Actual Finish"], y=df_sorted["Cumulative Actual Cost"],
+                   mode='lines+markers', name='Actual Cumulative Cost'),
+            secondary_y=True
+        )
 
-    # Add bar chart for individual activity costs (primary y-axis)
-    fig.add_trace(
-        go.Bar(x=df["Activity Name"], y=df["Budgeted Cost"], name="Budgeted Cost"),
-        secondary_y=False
-    )
-    fig.add_trace(
-        go.Bar(x=df["Activity Name"], y=df["Actual Cost"], name="Actual Cost"),
-        secondary_y=False
-    )
+        # Add bar chart for individual activity costs (primary y-axis)
+        fig.add_trace(
+            go.Bar(x=df["Activity Name"], y=df["Budgeted Cost"], name="Budgeted Cost"),
+            secondary_y=False
+        )
+        fig.add_trace(
+            go.Bar(x=df["Activity Name"], y=df["Actual Cost"], name="Actual Cost"),
+            secondary_y=False
+        )
 
-    # Update axis titles
-    fig.update_layout(
-        title="S-Curve and Cost Histogram Combined",
-        xaxis_title="Date / Activity Name",
-        barmode="group"
-    )
-    fig.update_yaxes(title_text="Cost per Activity", secondary_y=False)
-    fig.update_yaxes(title_text="Cumulative Cost", secondary_y=True)
+        # Update axis titles
+        fig.update_layout(
+            title="S-Curve and Cost Histogram Combined",
+            xaxis_title="Date / Activity Name",
+            barmode="group"
+        )
+        fig.update_yaxes(title_text="Cost per Activity", secondary_y=False)
+        fig.update_yaxes(title_text="Cumulative Cost", secondary_y=True)
 
-    # Show in Streamlit
-    st.plotly_chart(fig, use_container_width=True)
+        # Show in Streamlit
+        st.plotly_chart(fig, use_container_width=True)
         
     with fig_col2:
         st.markdown("### Man-hour Histogram")
