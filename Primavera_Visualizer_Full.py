@@ -60,7 +60,7 @@ if uploaded_file:
     fig_col1, fig_col2 = st.columns(2)  # Corrected variable names
 
     with fig_col1:
-        st.markdown("### First Chart")
+        st.markdown("### S-Curve")
         df_sorted = df.sort_values("Actual Finish")
         df_sorted["Cumulative Planned Cost"] = df_sorted["Budgeted Cost"].cumsum()
         df_sorted["Cumulative Actual Cost"] = df_sorted["Actual Cost"].cumsum()
@@ -70,11 +70,12 @@ if uploaded_file:
         s_curve_fig.add_trace(go.Scatter(x=df_sorted["Actual Finish"], y=df_sorted["Cumulative Actual Cost"],
                                  mode='lines+markers', name='Actual Cost'))
         s_curve_fig.update_layout(xaxis_title="Date", yaxis_title="Cumulative Cost")
+        hist_fig_cost = px.bar(df, x="Activity Name", y=["Budgeted Cost", "Actual Cost"], barmode="group")
         st.plotly_chart(s_curve_fig, use_container_width=True)
 
     with fig_col2:
-        st.markdown("### Second Chart")
-        hist_fig = px.bar(df, x="Activity Name", y=["Budgeted Hours", "Actual Hours"], barmode="group")
+        st.markdown("### Man-hour Histogram")
+        hist_fig_manhour = px.bar(df, x="Activity Name", y=["Budgeted Hours", "Actual Hours"], barmode="group")
         st.plotly_chart(hist_fig, use_container_width=True)
 
     st.subheader("📌 Earned Value Management")
