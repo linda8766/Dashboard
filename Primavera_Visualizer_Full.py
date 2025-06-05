@@ -71,7 +71,7 @@ if uploaded_file:
                                  mode='lines+markers', name='Actual Cost'))
         s_curve_fig.update_layout(xaxis_title="Date", yaxis_title="Cumulative Cost")
         hist_fig_cost = px.bar(df, x="Activity Name", y=["Budgeted Cost", "Actual Cost"], barmode="group")
-        st.plotly_chart(s_curve_fig, use_container_width=True)
+        st.plotly_chart(hist_fig_cost, s_curve_fig, use_container_width=True)
 
     with fig_col2:
         st.markdown("### Man-hour Histogram")
