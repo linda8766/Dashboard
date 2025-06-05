@@ -105,7 +105,7 @@ if uploaded_file:
         df_sorted = df.sort_values(by="Activity ID")
         
         # Create a new column for color coding
-        df["Critical Color"] = df["Critical "].fillna("").apply(lambda x: "critical" if str(x).strip().lower() == "yes" else "Non-Critical")
+        df["Critical Color"] = df["Critical "].fillna("").apply(lambda x: "Critical" if str(x).strip().lower() == "yes" else "Non-Critical")
         
         # Set custom order for y-axis (activity names)
         activity_order = df_sorted["Activity Name"].tolist()
@@ -118,7 +118,6 @@ if uploaded_file:
             y="Activity Name",
             color="Critical Color",  # Use color based on criticality
             color_discrete_map={
-                "Critical": "red",
                 "Non-Critical": "green"
             },
             category_orders={"Activity Name": activity_order}, 
