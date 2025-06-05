@@ -57,7 +57,7 @@ if uploaded_file:
     )
     st.plotly_chart(gantt_fig, use_container_width=True)
 
-    Fig_col, fig_col2= st.columns(2)
+    fig_col1, fig_col2 = st.columns(2)  # Corrected variable names
 
     with fig_col1:
         st.markdown("### First Chart")
@@ -66,17 +66,16 @@ if uploaded_file:
         df_sorted["Cumulative Actual Cost"] = df_sorted["Actual Cost"].cumsum()
         s_curve_fig = go.Figure()
         s_curve_fig.add_trace(go.Scatter(x=df_sorted["Actual Finish"], y=df_sorted["Cumulative Planned Cost"],
-                                     mode='lines+markers', name='Planned Cost'))
+                                 mode='lines+markers', name='Planned Cost'))
         s_curve_fig.add_trace(go.Scatter(x=df_sorted["Actual Finish"], y=df_sorted["Cumulative Actual Cost"],
-                                     mode='lines+markers', name='Actual Cost'))
+                                 mode='lines+markers', name='Actual Cost'))
         s_curve_fig.update_layout(xaxis_title="Date", yaxis_title="Cumulative Cost")
         st.plotly_chart(s_curve_fig, use_container_width=True)
-    
+
     with fig_col2:
         st.markdown("### Second Chart")
         hist_fig = px.bar(df, x="Activity Name", y=["Budgeted Hours", "Actual Hours"], barmode="group")
         st.plotly_chart(hist_fig, use_container_width=True)
-    
 
     st.subheader("📌 Earned Value Management")
     df["EV"] = df["Budgeted Cost"] * df["Actual %"] / 100
