@@ -4,31 +4,13 @@ import plotly.express as px
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 
+
+
 st.set_page_config(
     page_title= "Construction project Dashboard",
     layout="wide"
 )
-def set_dark_theme():
-    st.markdown(
-        """
-        <style>
-            body {
-                background-color: #0e1117;
-                color: #fafafa;
-            }
-            .css-1d391kg, .css-1lcbmhc {
-                background-color: #262730 !important;
-            }
-            .stButton > button {
-                background-color: #1f77b4;
-                color: white;
-            }
-        </style>
-        """,
-        unsafe_allow_html=True
-    )
-
-set_dark_theme()
+fig.update_layout(template="plotly_dark")
 
 uploaded_file = st.file_uploader("📂 Upload Your Primavera P6 Excel File", type=["xlsx"])
 
