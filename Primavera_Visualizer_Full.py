@@ -113,8 +113,8 @@ if uploaded_file:
         # Plot using the new color column
         gantt_fig = px.timeline(
             df,
-            x_start="Actual Start",
-            x_end="Actual Finish",
+            x_start= "Baseline Start",
+            x_end="Baseline Finish",
             y="Activity Name",
             color="Critical Color",  # Use color based on criticality
             color_discrete_map={
