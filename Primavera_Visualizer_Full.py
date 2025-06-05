@@ -11,7 +11,7 @@ uploaded_file = st.file_uploader("📂 Upload Your Primavera P6 Excel File", typ
 
 if uploaded_file:
     df = pd.read_excel(uploaded_file, sheet_name="Project Data")
-    col = st.columns((1.5, 4.5, 2), gap='medium')
+    col = st.columns((1.5, 6, 2), gap='medium')
     
     # Convert date columns
     df["Baseline Start"] = pd.to_datetime(df["Baseline Start"])
@@ -138,15 +138,15 @@ if uploaded_file:
             hist_fig_manhour = px.bar(df, x="Activity Name", y=["Budgeted Hours", "Actual Hours"], barmode="group")
             st.plotly_chart(hist_fig_manhour, use_container_width=True)
 
-    with col[3]: 
-        st.subheader("📈 Performance Indices Over Time")
-        df_grouped = df.groupby("Actual Finish").agg({"EV": "sum", "PV": "sum", "AC": "sum"}).sort_index().reset_index()
-        df_grouped["CPI"] = df_grouped["EV"] / df_grouped["AC"]
-        df_grouped["SPI"] = df_grouped["EV"] / df_grouped["PV"]
-        trend_fig = go.Figure()
-        trend_fig.add_trace(go.Scatter(x=df_grouped["Actual Finish"], y=df_grouped["CPI"],
-                                       mode='lines+markers', name="CPI", line=dict(color='green')))
-        trend_fig.add_trace(go.Scatter(x=df_grouped["Actual Finish"], y=df_grouped["SPI"],
-                                       mode='lines+markers', name="SPI", line=dict(color='blue')))
-        trend_fig.update_layout(xaxis_title="Date", yaxis_title="Index Value", yaxis=dict(range=[0, 2]))
-        st.plotly_chart(trend_fig, use_container_width=True)
+ 
+    st.subheader("📈 Performance Indices Over Time")
+    df_grouped = df.groupby("Actual Finish").agg({"EV": "sum", "PV": "sum", "AC": "sum"}).sort_index().reset_index()
+    df_grouped["CPI"] = df_grouped["EV"] / df_grouped["AC"]
+    df_grouped["SPI"] = df_grouped["EV"] / df_grouped["PV"]
+    trend_fig = go.Figure()
+    trend_fig.add_trace(go.Scatter(x=df_grouped["Actual Finish"], y=df_grouped["CPI"],
+                                    mode='lines+markers', name="CPI", line=dict(color='green')))
+    trend_fig.add_trace(go.Scatter(x=df_grouped["Actual Finish"], y=df_grouped["SPI"],
+                                    mode='lines+markers', name="SPI", line=dict(color='blue')))
+    trend_fig.update_layout(xaxis_title="Date", yaxis_title="Index Value", yaxis=dict(range=[0, 2]))
+    st.plotly_chart(trend_fig, use_container_width=True)
