@@ -4,7 +4,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 
 st.set_page_config(layout="wide")
-st.title("Primavera P6 Project Visualizer"
+st.title("Primavera P6 Project Visualizer",
 initial_sidebar_state="expanded")
 
 uploaded_file = st.file_uploader("📂 Upload Your Primavera P6 Excel File", type=["xlsx"])
