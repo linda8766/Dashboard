@@ -59,7 +59,6 @@ if uploaded_file:
         
         # Donut for CPI
         with col1:
-            st.subheader("🟢 CPI (Cost Performance Index)")
             cpi_color = "green" if CPI >= 1 else "red"
             cpi_fig = go.Figure(data=[go.Pie(
                 labels=["CPI", "Remaining"],
@@ -77,7 +76,6 @@ if uploaded_file:
         
         # Donut for SPI
         with col2:
-            st.subheader("🔵 SPI (Schedule Performance Index)")
             spi_color = "blue" if SPI >= 1 else "orange"
             spi_fig = go.Figure(data=[go.Pie(
                 labels=["SPI", "Remaining"],
