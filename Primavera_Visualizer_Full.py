@@ -5,6 +5,7 @@ import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 
 st.set_page_config(layout="wide")
+alt.themes.enable("dark")
 st.title("Primavera P6 Project Visualizer")
 
 uploaded_file = st.file_uploader("📂 Upload Your Primavera P6 Excel File", type=["xlsx"])
