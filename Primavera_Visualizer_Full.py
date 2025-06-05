@@ -76,7 +76,7 @@ if uploaded_file:
     with fig_col2:
         st.markdown("### Man-hour Histogram")
         hist_fig_manhour = px.bar(df, x="Activity Name", y=["Budgeted Hours", "Actual Hours"], barmode="group")
-        st.plotly_chart(hist_fig, use_container_width=True)
+        st.plotly_chart(hist_fig_manhour, use_container_width=True)
 
     st.subheader("📌 Earned Value Management")
     df["EV"] = df["Budgeted Cost"] * df["Actual %"] / 100
