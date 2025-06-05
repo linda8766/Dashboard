@@ -54,28 +54,44 @@ if uploaded_file:
         st.metric("Actual Cost (AC)", f"${AC:,.2f}")
         st.metric("Cost Variance (CV)", f"${CV:,.2f}")
         st.metric("Schedule Variance (SV)", f"${SV:,.2f}")
-        # Prepare data for donut chart
-        labels = ["CPI", "SPI"]
-        values = [CPI, SPI]
-        colors = ["green" if CPI >= 1 else "red", "blue" if SPI >= 1 else "orange"]
+        # Create columns for two charts
+        col1, col2 = st.columns(2)
         
-        # Plotly Donut Chart
-        donut_fig = go.Figure(data=[go.Pie(
-            labels=labels,
-            values=values,
-            hole=0.6,
-            marker=dict(colors=colors),
-            textinfo='label+percent',
-            hoverinfo='label+value'
-        )])
+        # Donut for CPI
+        with col1:
+            st.subheader("🟢 CPI (Cost Performance Index)")
+            cpi_color = "green" if CPI >= 1 else "red"
+            cpi_fig = go.Figure(data=[go.Pie(
+                labels=["CPI", "Remaining"],
+                values=[CPI, max(2 - CPI, 0.01)],  # Ensure donut has a visible ring
+                hole=0.6,
+                marker=dict(colors=[cpi_color, "lightgray"]),
+                textinfo='label+percent',
+                hoverinfo='label+value'
+            )])
+            cpi_fig.update_layout(
+                title_text=f"CPI = {CPI:.2f}",
+                showlegend=False
+            )
+            st.plotly_chart(cpi_fig, use_container_width=True)
         
-        donut_fig.update_layout(
-            title_text=f"📊 Performance Indices Snapshot (as of {latest_date.date()})",
-            showlegend=True
-        )
-        
-        # Display in Streamlit
-        st.plotly_chart(donut_fig, use_container_width=True)
+        # Donut for SPI
+        with col2:
+            st.subheader("🔵 SPI (Schedule Performance Index)")
+            spi_color = "blue" if SPI >= 1 else "orange"
+            spi_fig = go.Figure(data=[go.Pie(
+                labels=["SPI", "Remaining"],
+                values=[SPI, max(2 - SPI, 0.01)],
+                hole=0.6,
+                marker=dict(colors=[spi_color, "lightgray"]),
+                textinfo='label+percent',
+                hoverinfo='label+value'
+            )])
+            spi_fig.update_layout(
+                title_text=f"SPI = {SPI:.2f}",
+                showlegend=False
+            )
+            st.plotly_chart(spi_fig, use_container_width=True))
         st.metric("Earned Schedule (ES)", f"{ES:.2f}" if ES else "N/A")
         st.metric("Schedule Variance (Time)", f"{Schedule_Variance_Time:.2f}" if Schedule_Variance_Time else "N/A")
 
