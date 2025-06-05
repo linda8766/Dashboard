@@ -91,7 +91,7 @@ if uploaded_file:
                 title_text=f"SPI = {SPI:.2f}",
                 showlegend=False
             )
-        st.plotly_chart(spi_fig, use_container_width=True))
+            st.plotly_chart(spi_fig, use_container_width=True)
         st.metric("Earned Schedule (ES)", f"{ES:.2f}" if ES else "N/A")
         st.metric("Schedule Variance (Time)", f"{Schedule_Variance_Time:.2f}" if Schedule_Variance_Time else "N/A")
 
