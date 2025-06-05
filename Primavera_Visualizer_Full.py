@@ -83,22 +83,24 @@ if uploaded_file:
 
         # Add bar chart for individual activity costs (primary y-axis)
         fig.add_trace(
-            go.Bar(x=df["Activity Name"], y=df["Budgeted Cost"], name="Budgeted Cost"),
+            go.Bar(x=df_sorted["Actual Finish"], y=df_sorted["Budgeted Cost"], name="Budgeted Cost", opacity=0.5),
             secondary_y=False
         )
         fig.add_trace(
-            go.Bar(x=df["Activity Name"], y=df["Actual Cost"], name="Actual Cost"),
-            secondary_y=False
+        go.Bar(x=df_sorted["Actual Finish"], y=df_sorted["Actual Cost"], name="Actual Cost", opacity=0.5),
+        secondary_y=False
         )
 
         # Update axis titles
         fig.update_layout(
             title="S-Curve and Cost Histogram Combined",
-            xaxis_title="Date / Activity Name",
+            xaxis_title="Actual Finish Date",
             barmode="group"
         )
-        fig.update_yaxes(title_text="Cost per Activity", secondary_y=False)
+        fig.update_yaxes(title_text="Daily Cost", secondary_y=False)
         fig.update_yaxes(title_text="Cumulative Cost", secondary_y=True)
+        legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1)
+    	)
 
         # Show in Streamlit
         st.plotly_chart(fig, use_container_width=True)
