@@ -11,7 +11,7 @@ uploaded_file = st.file_uploader("📂 Upload Your Primavera P6 Excel File", typ
 
 if uploaded_file:
     df = pd.read_excel(uploaded_file, sheet_name="Project Data")
-    col = st.columns((3, 8), gap='medium')
+    col = st.columns((2.5, 8), gap='medium')
     
     # Convert date columns
     df["Baseline Start"] = pd.to_datetime(df["Baseline Start"])
