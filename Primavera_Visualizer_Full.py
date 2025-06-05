@@ -1,16 +1,13 @@
 import streamlit as st
-import altair as alt
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
-import plotly.io as pio
 
 st.set_page_config(
     page_title= "Construction project Dashboard",
     layout="wide"
 )
-alt.themes.enable("dark")
 
 uploaded_file = st.file_uploader("📂 Upload Your Primavera P6 Excel File", type=["xlsx"])
 
