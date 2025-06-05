@@ -5,7 +5,7 @@ import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 
 st.set_page_config(
-    page_title= "Construction project Dashboard"
+    page_title= "Construction project Dashboard",
     layout="wide")
     alt.themes.enable("dark")
 
